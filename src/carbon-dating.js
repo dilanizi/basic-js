@@ -17,16 +17,26 @@ const HALF_LIFE_PERIOD = 5730;
  * dateSample('WOOT!') => false
  *
  */
-function dateSample(/* sampleActivity */) {
-  const MODERN_ACTIVITY = 15;
-  const HALF_LIFE_PERIOD = 5730;
+function dateSample(sampleActivity) {
+   // Проверяем, является ли входной параметр строкой
+   if (typeof sampleActivity !== 'string') {
+    return false;
+}
 
-  function dateSample(sampleActivity) {
-    throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+// Преобразуем значение активности образца в число с плавающей точкой
+const activity = parseFloat(sampleActivity);
+
+// Проверяем, является ли значение активности образца корректным числом
+if (isNaN(activity) || activity <= 0 || activity > MODERN_ACTIVITY) {
+    return false;
+}
+
+// Вычисляем возраст образца, округляя вверх до целого числа
+const age = Math.ceil(Math.log(MODERN_ACTIVITY / activity) / (0.693 / HALF_LIFE_PERIOD));
+return age;
 }
 
 module.exports = {
   dateSample
 };
-}
+

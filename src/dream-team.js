@@ -13,9 +13,28 @@ const { NotImplementedError } = require('../extensions/index.js');
  * createDreamTeam(['Olivia', 1111, 'Lily', 'Oscar', true, null]) => 'LOO'
  *
  */
-function createDreamTeam(/* members */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function createDreamTeam(members) {
+  // Проверяем, что переданный аргумент является масивом
+  if (!Array.isArray(members)) {
+    return false;
+  }
+
+  // Создаем новый массив, содержащий только имена участников
+  const filteredMembers = members.filter(member => typeof member === 'string');
+
+  // Проверяем, что в итоговом массиве остались только строки
+  if (filteredMembers.length === 0) {
+    return false;
+  }
+
+  // Создаем массив из первых букв имен участников (приводим к верхнему регистру)
+  const initials = filteredMembers.map(member => member.trim()[0].toUpperCase());
+
+  // Сортируем массив с инициалами в алфавитном порядке
+  const sortedInitials = initials.sort();
+
+  // Возвращаем инициалы в виде строки
+  return sortedInitials.join('');
 }
 
 module.exports = {
